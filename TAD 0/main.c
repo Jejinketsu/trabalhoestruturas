@@ -14,8 +14,8 @@ int main(){
         printf("---------Menu----------\n");
         printf("1. Adicionar Orientador.\n2. Adicionar Orientando.\n3. Listar Orientadores.\n");
         printf("4. Listar Orientandos.\n5. Listar Orientandos de um Orientador.\n6. Vincular um orientador.\n");
-        printf("7. Atualizar Orientador.\n8. Atualizar Orientando.\n9. Excluir Orientador.\n10. Excluir Orientando.\n");
-        printf("11. Pesquisar Orientador.\n12. Pesquisar Orientando.\n");
+        printf("7. Desvincular um orientando\n8. Atualizar Orientador.\n9. Atualizar Orientando.\n10. Excluir Orientador.\n");
+        printf("11. Excluir Orientando.\n12. Pesquisar Orientador.\n13. Pesquisar Orientando.\n");
         printf("0. Sair\nin: ");
         scanf("%d", &opc);
 
@@ -33,10 +33,7 @@ int main(){
                 scanf("%[^\n]s", senha);
                 printf("Digite a matricula: ");
                 scanf("%ld", &matricula);
-                Orientador orientador = criarOrientador(nome, senha, matricula);
-                orientador.id = qtdOrientadores;
-                orientadores[qtdOrientadores] = orientador; qtdOrientadores++;
-                orientadores = (Orientador *) realloc(orientadores, sizeof(Orientador)*(qtdOrientadores+1));
+                orientadores = criarOrientador(orientadores, nome, senha, matricula, &qtdOrientadores);
                 break;
 
             case 2:
@@ -51,10 +48,7 @@ int main(){
                 scanf("%s", nivel);
                 printf("Digite a matricula: ");
                 scanf("%ld", &matricula);
-                Orientando orientando = criarOrientando(nome, senha, nivel, matricula);
-                orientando.id = qtdOrientandos;
-                orientandos[qtdOrientandos] = orientando; qtdOrientandos++;
-                orientandos = (Orientando *) realloc(orientandos, sizeof(Orientando)*(qtdOrientandos+1));
+                orientandos = criarOrientando(orientandos, nome, senha, nivel, matricula, &qtdOrientandos);
                 break;
 
             case 3:
@@ -86,6 +80,15 @@ int main(){
                 break;
 
             case 7:
+                printf("Digite o id do orientador e orientando desejados: ");
+                scanf("%d %d", &id1, &id2);
+                if(id1 > qtdOrientadores || id2 > qtdOrientandos){
+                    printf("ID não existe.");
+                    break;
+                }
+                removeOrientando(&orientandos[id2], &orientadores[id1]);
+                break;
+            case 8:
                 if(qtdOrientadores == 0){
                     printf("Não existem orientadores.\n");
                     break;
@@ -105,7 +108,7 @@ int main(){
                 atualizarOrientador(&orientadores[id1], nome, senha, matricula);
                 break;
 
-            case 8:
+            case 9:
                 if(qtdOrientandos == 0){
                     printf("Não existem orientandos.\n");
                     break;
@@ -127,7 +130,7 @@ int main(){
                 atualizarOrientando(&orientandos[id1], nome, senha, nivel, matricula);
                 break;
 
-            case 9:
+            case 10:
                 if(qtdOrientadores == 0){
                     printf("Não existem orientadores.\n");
                     break;
@@ -135,12 +138,10 @@ int main(){
                 setbuf(stdin, NULL);
                 printf("Digite o id do orientador: ");
                 scanf("%d", &id1);
-                excluirOrientador(orientadores, id1, qtdOrientadores);
-                orientadores = (Orientador *) realloc(orientadores, sizeof(Orientador)*qtdOrientadores);
-                qtdOrientadores--;
+                orientadores = excluirOrientador(orientadores, id1, &qtdOrientadores);
                 break;
 
-            case 10:
+            case 11:
                 if(qtdOrientandos == 0){
                     printf("Não existem orientandos.\n");
                     break;
@@ -148,12 +149,10 @@ int main(){
                 setbuf(stdin, NULL);
                 printf("Digite o id do orientando: ");
                 scanf("%d", &id1);
-                excluirOrientando(orientandos, id1, qtdOrientandos);
-                orientandos = (Orientando *) realloc(orientandos, sizeof(Orientando)*qtdOrientandos);
-                qtdOrientandos--;
+                orientandos = excluirOrientando(orientandos, id1, &qtdOrientandos);
                 break;
 
-            case 11:
+            case 12:
                 if(qtdOrientadores == 0){
                     printf("Não existem orientadores.\n");
                     break;
@@ -164,7 +163,7 @@ int main(){
                 pesquisarOrientador(orientadores, matricula, qtdOrientadores);
                 break;
 
-            case 12:
+            case 13:
                 if(qtdOrientandos == 0){
                     printf("Não existem orientandos.\n");
                     break;

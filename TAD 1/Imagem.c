@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "TAD-1.h"
+#include "imagem.h"
 
 Imagem aloca(int altura, int largura){
 	Imagem imagem;
@@ -12,7 +12,7 @@ Imagem aloca(int altura, int largura){
 	}
 	imagem.altura = altura;
 	imagem.largura = largura;
-	return im;
+	return imagem;
 }
 
 void preenche(Imagem imagem){
@@ -26,41 +26,41 @@ void preenche(Imagem imagem){
 }
 
 void salvarImagem(Imagem imagem, char *caminho){
-	FILE *aoMolho;
+	FILE *arquivo;
 	int i, j;
-	aoMolho = fopen(caminho, "w");
-	if(aoMolho == NULL){
+	arquivo = fopen(caminho, "w");
+	if(arquivo == NULL){
 		fprintf(stderr,"Erro na abertura de arquivo!\n");
         exit(1);  
 	}else{
 		for(i=0; i<imagem.altura; i++){
 			for(j=0; j<imagem.largura; j++){
-				fprintf(aoMolho, "%d ", imagem.matriz[i][j]);
+				fprintf(arquivo, "%d ", imagem.matriz[i][j]);
 			}
-			fprintf(aoMolho, "\n");
+			fprintf(arquivo, "\n");
 		}
 		printf("Imagem salva com sucesso!\n");
 	}
-	fclose(aoMolho);
+	fclose(arquivo);
 }
 
 void lerImagem(Imagem imagem, char *caminho){
-	FILE *aoMolho;
+	FILE *arquivo;
 	int i, j, aux;
-	aoMolho = fopen(caminho, "rt");
-	if(aoMolho == NULL){
+	arquivo = fopen(caminho, "rt");
+	if(arquivo == NULL){
 		fprintf(stderr,"Erro na abertura de arquivo!\n");
         exit(1);  
 	}else{
 		i = 0;
-		while(!feof(aoMolho)){
+		while(!feof(arquivo)){
 			//if()   -
-			imagem.matriz[i][j] = fscanf(aoMolho, "%d", &aux);
+			imagem.matriz[i][j] = fscanf(arquivo, "%d", &aux);
 			printf(" %d", imagem.matriz[i][j]);
 		}
 		printf("Imagem salva com sucesso!\n");
 	}
-	fclose(aoMolho);
+	fclose(arquivo);
 }
 
 void mostrarImagem(Imagem imagem){
