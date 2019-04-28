@@ -47,15 +47,14 @@ void salvarImagem(Imagem imagem, char *caminho){
 void lerImagem(Imagem imagem, char *caminho){
 	FILE *arquivo;
 	int i, j, aux;
-	arquivo = fopen(caminho, "rt");
+	arquivo = fopen(caminho, "r");
 	if(arquivo == NULL){
 		fprintf(stderr,"Erro na abertura de arquivo!\n");
         exit(1);  
 	}else{
 		i = 0;
 		while(!feof(arquivo)){
-			imagem.matriz[i][j] = fscanf(arquivo, "%d", &aux);
-			printf(" %d", imagem.matriz[i][j]);
+			fscanf(arquivo, "%d", &aux); imagem.matriz[i][j] = aux;
 		}
 		printf("Imagem lida com sucesso!\n");
 	}
