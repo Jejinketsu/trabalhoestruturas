@@ -7,7 +7,7 @@ Imagem aloca(int altura, int largura){
 	Imagem imagem;
 	int i;
 	imagem.matriz = (int**) malloc(sizeof(int*)*altura);
-	for(i=0; i<altura; i++){
+	for(i = 0; i < altura; i++){
 		imagem.matriz[i] = (int*) malloc(sizeof(int)*largura);
 	}
 	imagem.altura = altura;
@@ -18,8 +18,8 @@ Imagem aloca(int altura, int largura){
 void preenche(Imagem imagem){
 	int i, j;
 	srand(time(NULL));
-	for(i=0; i<imagem.altura; i++){
-		for(j=0; j<imagem.largura; j++){
+	for(i = 0; i < imagem.altura; i++){
+		for(j = 0; j < imagem.largura; j++){
 			imagem.matriz[i][j] = rand() % 256;
 		}
 	}
@@ -33,8 +33,8 @@ void salvarImagem(Imagem imagem, char *caminho){
 		fprintf(stderr,"Erro na abertura de arquivo!\n");
         exit(1);  
 	}else{
-		for(i=0; i<imagem.altura; i++){
-			for(j=0; j<imagem.largura; j++){
+		for(i = 0; i < imagem.altura; i++){
+			for(j = 0; j < imagem.largura; j++){
 				fprintf(arquivo, "%d ", imagem.matriz[i][j]);
 			}
 			fprintf(arquivo, "\n");
@@ -54,19 +54,18 @@ void lerImagem(Imagem imagem, char *caminho){
 	}else{
 		i = 0;
 		while(!feof(arquivo)){
-			//if()   -
 			imagem.matriz[i][j] = fscanf(arquivo, "%d", &aux);
 			printf(" %d", imagem.matriz[i][j]);
 		}
-		printf("Imagem salva com sucesso!\n");
+		printf("Imagem lida com sucesso!\n");
 	}
 	fclose(arquivo);
 }
 
 void mostrarImagem(Imagem imagem){
 	printf("\n");
-	for(int i=0; i<imagem.altura; i++){
-		for(int j=0; j<imagem.largura; j++){
+	for(int i = 0; i < imagem.altura; i++){
+		for(int j = 0; j < imagem.largura; j++){
 			printf("%d ", imagem.matriz[i][j]);
 		}
 		printf("\n");
@@ -76,8 +75,8 @@ void mostrarImagem(Imagem imagem){
 void LBP(Imagem imagem){
 	int binario[8];
 
-	for(int i=0; i<EOF; i++){
-		for(int j=0; j<'\0'; j++){
+	for(int i = 0; i < EOF; i++){
+		for(int j = 0; j < '\0'; j++){
 			imagem.matriz[i][j];	
 		}
 	}
