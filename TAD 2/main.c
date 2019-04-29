@@ -4,5 +4,15 @@
 
 int main(){
 
+    Imagem imagem = lerImagem("teste.txt");
+    mostrarImagem(imagem);
+    /*
+
+    filtroDeMedia(&imagem);
+
+    mostrarImagem(imagem);
+    salvarImagem(imagem, "filtro.txt");
+
     return 0;
+    */
 }

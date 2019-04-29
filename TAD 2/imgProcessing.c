@@ -47,12 +47,12 @@ float distManhattan(Imagem imagem, Ponto ponto1, Ponto ponto2){
 
 void filtroDeMedia(Imagem *imagem){
     int soma, kernel = 3, media = 0;
-    for(int ka = 0; ka < imagem->altura-2; ka++){
-        for(int kl = 0; kl < imagem->largura-2; kl++){
+    for(int ka = 0; ka < imagem->altura; ka++){
+        for(int kl = 0; kl < imagem->largura; kl++){
             soma = 0;
             for(int i = ka; i < ka+kernel; i++){
                 for(int j = kl; j < kl+kernel; j++){
-                    soma += imagem->matriz[i][j];
+                    soma += imagem->matriz[i%imagem->altura][j%imagem->largura];
                 }
             }
             media = (int) (soma/9);
