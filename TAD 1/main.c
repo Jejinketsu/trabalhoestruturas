@@ -9,12 +9,12 @@ void main(){
 	scanf("%d %d", &altura, &largura);
 	imagem = aloca(altura, largura);
 	
-	//preenche(imagem);
+	preenche(imagem);
 	
-	//salvarImagem(imagem, "teste.txt");
+	salvarImagem(imagem, "teste.txt");
 	
-	lerImagem(imagem,"teste.txt");
+	Imagem imagem2 = lerImagem("teste.txt");
 
-	mostrarImagem(imagem);
+	mostrarImagem(imagem2);
 	
 }

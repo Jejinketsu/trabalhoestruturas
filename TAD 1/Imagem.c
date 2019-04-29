@@ -29,6 +29,7 @@ void salvarImagem(Imagem imagem, char *caminho){
 	FILE *arquivo;
 	int i, j;
 	arquivo = fopen(caminho, "w");
+	
 	if(arquivo == NULL){
 		fprintf(stderr,"Erro na abertura de arquivo!\n");
         exit(1);  
@@ -44,21 +45,36 @@ void salvarImagem(Imagem imagem, char *caminho){
 	fclose(arquivo);
 }
 
-void lerImagem(Imagem imagem, char *caminho){
-	FILE *arquivo;
-	int i, j, aux;
+Imagem lerImagem(char *caminho){
+	Imagem imagem; FILE *arquivo;
+	int i = 0, j = 0, aux;
 	arquivo = fopen(caminho, "r");
+
 	if(arquivo == NULL){
 		fprintf(stderr,"Erro na abertura de arquivo!\n");
         exit(1);  
 	}else{
-		i = 0;
 		while(!feof(arquivo)){
-			fscanf(arquivo, "%d", &aux); imagem.matriz[i][j] = aux;
+			char c = fgetc(arquivo);
+			if(c == ' ') i++;
+			else if (c == '\n') j++;
 		}
+
+		i = i/j; fseek(arquivo, 0, SEEK_SET);
+		imagem = aloca(j, i);
+
+		for(int i = 0; i < imagem.altura; i++){
+			for(int j = 0; j < imagem.largura; j++){
+				fscanf(arquivo, "%d ", &aux);
+				imagem.matriz[i][j] = aux;
+			}
+		}
+
 		printf("Imagem lida com sucesso!\n");
 	}
 	fclose(arquivo);
+
+	return imagem;
 }
 
 void mostrarImagem(Imagem imagem){
@@ -68,15 +84,5 @@ void mostrarImagem(Imagem imagem){
 			printf("%d ", imagem.matriz[i][j]);
 		}
 		printf("\n");
-	}
-}
-
-void LBP(Imagem imagem){
-	int binario[8];
-
-	for(int i = 0; i < EOF; i++){
-		for(int j = 0; j < '\0'; j++){
-			imagem.matriz[i][j];	
-		}
 	}
 }

@@ -12,8 +12,6 @@ void preenche(Imagem imagem);
 
 void salvarImagem(Imagem imagem, char *caminho);
 
-void lerImagem(Imagem imagem, char *caminho);
+Imagem lerImagem(char *caminho);
 
 void mostrarImagem(Imagem imagem);
-
-void LBP(Imagem imagem);
