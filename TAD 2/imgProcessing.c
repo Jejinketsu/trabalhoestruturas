@@ -45,37 +45,62 @@ float distManhattan(Imagem imagem, Ponto ponto1, Ponto ponto2){
     return (abs(ponto1.x - ponto2.x) + abs(ponto1.y - ponto2.y));
 }
 
-void filtroDeMedia(Imagem *imagem){
+Imagem LBP(Imagem imagem){
+    Imagem imagemNova = aloca(imagem.altura, imagem.largura);
+    int binario[8];
+    int kernel = 3m cont;
+    for(int ka = 0; ka < imagem.altura; ka++){
+        for(int kl = 0; kl < imagem.largura; kl++){
+            cont = 0;
+            int vc = imagem.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura]
+            for(int i = ka; i < ka+kernel; i++){
+                for(int j = kl; j < kl+kernel; j++){
+                    if(cont == 4) continue;
+                    if(imagem.matriz[i%imagem.altura][j%imagem.largura] >= vc)binario[cont] = 1; cont++;
+                    else binario[cont] = 0;
+                }
+            }
+            
+        }
+    }
+    return imagemNova;
+}
+
+Imagem filtroDeMedia(Imagem imagem){
+    Imagem imagemNova = aloca(imagem.altura, imagem.largura);
     int soma, kernel = 3, media = 0;
-    for(int ka = 0; ka < imagem->altura; ka++){
-        for(int kl = 0; kl < imagem->largura; kl++){
+    for(int ka = 0; ka < imagem.altura; ka++){
+        for(int kl = 0; kl < imagem.largura; kl++){
             soma = 0;
             for(int i = ka; i < ka+kernel; i++){
                 for(int j = kl; j < kl+kernel; j++){
-                    soma += imagem->matriz[i%imagem->altura][j%imagem->largura];
+                    soma += imagem.matriz[i%imagem.altura][j%imagem.largura];
                 }
             }
             media = (int) (soma/9);
-            imagem->matriz[ka+1][kl+1] = media;
+            imagemNova.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura] = media;
         }
     }
+    return imagemNova;
 }
 
-void filtroDeMediana(Imagem *imagem){
+Imagem filtroDeMediana(Imagem imagem){
+    Imagem imagemNova = aloca(imagem.altura, imagem.largura);
     int kernel = 3, media = 0, vetorK[9], cont;
     int elementosK = kernel*kernel;
-    for(int ka = 0; ka < imagem->altura-2; ka++){
-        for(int kl = 0; kl < imagem->largura-2; kl++){
+    for(int ka = 0; ka < imagem.altura; ka++){
+        for(int kl = 0; kl < imagem.largura; kl++){
             cont = 0;
             for(int i = ka; i < ka+kernel; i++){
                 for(int j = kl; j < kl+kernel; j++){
-                    vetorK[cont] = imagem->matriz[i][j]; cont++;
+                    vetorK[cont] = imagem.matriz[i%imagem.altura][j%imagem.largura]; cont++;
                 }
             }
             sort(vetorK, elementosK);
             if(elementosK%2 == 0) media = (vetorK[elementosK/2] + vetorK[(elementosK/2)+1])/2;
             else media = vetorK[elementosK/2];
-            imagem->matriz[ka+1][kl+1] = media;
+            imagemNova.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura] = media;
         }
     }
+    return imagemNova;
 }

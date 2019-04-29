@@ -6,9 +6,11 @@ typedef struct {
 } Ponto;
 
 void sort(int *vetor, int n);
+int binForInt(int *vetor);
 int maiorValor(Imagem imagem);
 int menorValor(Imagem imagem);
 float distEuclidiana(Imagem imagem, Ponto ponto1, Ponto ponto2);
 float distManhattan(Imagem imagem, Ponto ponto1, Ponto ponto2);
-void filtroDeMedia(Imagem *imagem);
-void filtroDeMediana(Imagem *imagem);
+Imagem LBP(Imagem imagem);
+Imagem filtroDeMedia(Imagem imagem);
+Imagem filtroDeMediana(Imagem imagem);
