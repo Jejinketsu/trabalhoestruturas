@@ -6,9 +6,9 @@
 Imagem aloca(int altura, int largura){
 	Imagem imagem;
 	int i;
-	imagem.matriz = (int**) malloc(sizeof(int*)*altura);
+	imagem.matriz = (int**) calloc(sizeof(int*), altura);
 	for(i = 0; i < altura; i++){
-		imagem.matriz[i] = (int*) malloc(sizeof(int)*largura);
+		imagem.matriz[i] = (int*) calloc(sizeof(int), largura);
 	}
 	imagem.altura = altura;
 	imagem.largura = largura;
@@ -20,7 +20,7 @@ void preenche(Imagem imagem){
 	srand(time(NULL));
 	for(i = 0; i < imagem.altura; i++){
 		for(j = 0; j < imagem.largura; j++){
-			imagem.matriz[i][j] = rand() % 256;
+			imagem.matriz[i][j] = rand() % 4;
 		}
 	}
 }

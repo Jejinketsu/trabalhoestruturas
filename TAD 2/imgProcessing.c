@@ -89,6 +89,21 @@ Imagem LBP(Imagem imagem){
     return imagemNova;
 }
 
+Imagem matrizDeConcorrencia(Imagem imagem, int dist, int angulo){
+    int Ng = maiorValor(imagem);
+    Imagem imagemNova = aloca(Ng+1, Ng+1);
+
+    for(int ka = 0; ka < imagem.altura; ka++){
+        for(int kl = 0; kl < imagem.largura; kl++){
+            if(angulo == 0) imagemNova.matriz[imagem.matriz[ka][kl]][imagem.matriz[ka][(kl+dist)%imagem.largura]]++;
+            else if(angulo == 45) imagemNova.matriz[imagem.matriz[ka][kl]][imagem.matriz[(imagem.altura+ka-dist)%imagem.altura][(kl+dist)%imagem.largura]]++;
+            else if(angulo == 90) imagemNova.matriz[imagem.matriz[ka][kl]][imagem.matriz[(imagem.altura+ka-dist)%imagem.altura][kl]]++;
+            else if(angulo == 135) imagemNova.matriz[imagem.matriz[ka][kl]][imagem.matriz[(ka+dist)%imagem.altura][(kl+dist)%imagem.largura]]++;
+        }
+    }
+    return imagemNova;
+}
+
 Imagem filtroDeMedia(Imagem imagem){
     Imagem imagemNova = aloca(imagem.altura, imagem.largura);
     int soma, kernel = 3, media = 0;

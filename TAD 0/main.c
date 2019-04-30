@@ -203,13 +203,14 @@ int main(){
 
 void menuImagem(Orientando *orientando){
     int opc = 0, imgOpc, altura, largura;
+    int angulo, distancia;
     Ponto ponto1, ponto2;
     char nome[20];
     do{
         printf("---Menu de Imagem---\n");
         printf("0. Deslogar.\n1. Gerar Imagem.\n2. Salvar Imagem.\n3. Ler Imagem.\n4. Mostrar Imagem.\n");
         printf("5. Maior Valor.\n6. Menor Valor.\n7. Dist Euclidiana.\n8. Dist Manhattan.\n");
-        printf("9. LBP.\n10. Filtro de Media.\n11. Filtro de Mediana.\n");
+        printf("9. LBP.\n10. Matriz de Concorrencia\n11. Filtro de Media.\n12. Filtro de Mediana.\n");
         scanf("%d", &opc);
 
         switch (opc){
@@ -295,11 +296,18 @@ void menuImagem(Orientando *orientando){
             break;
         
         case 10:
-            orientando->imagemFiltrada = filtroDeMedia(orientando->imagem);
+            printf("Digite o angulo(0, 45, 90 ou 135) e a distancia: ");
+            scanf("%d %d", &angulo, &distancia);
+            orientando->imagemFiltrada = matrizDeConcorrencia(orientando->imagem, distancia, angulo);
             printf("Filtro aplicado. Resultado na imagem secundaria.\n");
             break;
 
         case 11:
+            orientando->imagemFiltrada = filtroDeMedia(orientando->imagem);
+            printf("Filtro aplicado. Resultado na imagem secundaria.\n");
+            break;
+
+        case 12:
             orientando->imagemFiltrada = filtroDeMediana(orientando->imagem);
             printf("Filtro aplicado. Resultado na imagem secundaria.\n");
             break;

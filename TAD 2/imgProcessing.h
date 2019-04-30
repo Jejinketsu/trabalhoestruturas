@@ -12,5 +12,6 @@ int menorValor(Imagem imagem);
 float distEuclidiana(Imagem imagem, Ponto ponto1, Ponto ponto2);
 float distManhattan(Imagem imagem, Ponto ponto1, Ponto ponto2);
 Imagem LBP(Imagem imagem);
+Imagem matrizDeConcorrencia(Imagem imagem, int dist, int angulo);
 Imagem filtroDeMedia(Imagem imagem);
 Imagem filtroDeMediana(Imagem imagem);
