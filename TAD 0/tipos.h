@@ -1,3 +1,5 @@
+#include "../TAD 2/imgProcessing.h"
+
 typedef struct orientando Orientando;
 typedef struct orientador Orientador;
 
@@ -6,6 +8,7 @@ struct orientando{
     int id;
     char nome[50], senha[20];
     char nivel[10];
+    Imagem imagem, imagemFiltrada;
     Orientador *orientador, *coOrientador;
 };
 

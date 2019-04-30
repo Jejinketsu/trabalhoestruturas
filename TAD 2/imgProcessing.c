@@ -46,10 +46,24 @@ int menorValor(Imagem imagem){
 }
 
 float distEuclidiana(Imagem imagem, Ponto ponto1, Ponto ponto2){
+    if(ponto1.x > imagem.largura || ponto2.x > imagem.largura){
+        printf("Coordenadas invalidas.\n");
+        return 0;
+    } else if(ponto1.y > imagem.altura || ponto2.y > imagem.altura){
+        printf("Coordenadas invalidas.\n");
+        return 0;
+    }
     return sqrt(pow((ponto1.x - ponto2.x), 2) + pow((ponto1.y - ponto2.y), 2));
 }
 
 float distManhattan(Imagem imagem, Ponto ponto1, Ponto ponto2){
+    if(ponto1.x > imagem.largura || ponto2.x > imagem.largura){
+        printf("Coordenadas invalidas.\n");
+        return 0;
+    } else if(ponto1.y > imagem.altura || ponto2.y > imagem.altura){
+        printf("Coordenadas invalidas.\n");
+        return 0;
+    }
     return (abs(ponto1.x - ponto2.x) + abs(ponto1.y - ponto2.y));
 }
 

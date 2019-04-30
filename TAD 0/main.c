@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "tipos.h"
+
+void menuImagem(Orientando *orientando);
 
 int main(){
 
@@ -16,6 +19,7 @@ int main(){
         printf("4. Listar Orientandos.\n5. Listar Orientandos de um Orientador.\n6. Vincular um orientador.\n");
         printf("7. Desvincular um orientando\n8. Atualizar Orientador.\n9. Atualizar Orientando.\n10. Excluir Orientador.\n");
         printf("11. Excluir Orientando.\n12. Pesquisar Orientador.\n13. Pesquisar Orientando.\n");
+        printf("14. Acessar Orientando.\n");
         printf("0. Sair\nin: ");
         scanf("%d", &opc);
 
@@ -173,6 +177,21 @@ int main(){
                 scanf("%ld", &matricula);
                 pesquisarOrientando(orientandos, matricula, qtdOrientandos);
                 break;
+            
+            case 14:
+                printf("Digite a matricula: ");
+                scanf("%ld", &matricula);
+                id1 = pesquisarOrientando(orientandos, matricula, qtdOrientandos);
+                char senha[20];
+                printf("Digite a senha: ");
+                scanf("%s", senha);
+                if(!strcmp(orientandos[id1].senha, senha)){
+                    printf("Logado.\n");
+                    menuImagem(&orientandos[id1]);
+                }else{
+                    printf("Acesso Negado.\n");
+                }
+                break;
 
             default:
                 break;
@@ -180,4 +199,113 @@ int main(){
     }while(opc != 0);
 
     return 0;
+}
+
+void menuImagem(Orientando *orientando){
+    int opc = 0, imgOpc, altura, largura;
+    Ponto ponto1, ponto2;
+    char nome[20];
+    do{
+        printf("---Menu de Imagem---\n");
+        printf("0. Deslogar.\n1. Gerar Imagem.\n2. Salvar Imagem.\n3. Ler Imagem.\n4. Mostrar Imagem.\n");
+        printf("5. Maior Valor.\n6. Menor Valor.\n7. Dist Euclidiana.\n8. Dist Manhattan.\n");
+        printf("9. LBP.\n10. Filtro de Media.\n11. Filtro de Mediana.\n");
+        scanf("%d", &opc);
+
+        switch (opc){
+        case 0:
+            printf("Deslogado.\n");
+            break;
+        
+        case 1:
+            printf("Digite altura e largura: ");
+            scanf("%d %d", &altura, &largura);
+            orientando->imagem = aloca(altura, largura);
+            orientando->imagemFiltrada = aloca(altura, largura);
+            preenche(orientando->imagem);
+            printf("Imagem gerada.\n");
+            break;
+
+        case 2:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            printf("digite o nome do arquivo: ");
+            scanf("%s", nome);
+            sprintf(nome, "%s", ".txt");
+            if(imgOpc == 0) salvarImagem(orientando->imagem, nome);
+            else if(imgOpc == 1) salvarImagem(orientando->imagemFiltrada, nome);
+            break;
+        
+        case 3:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            printf("digite o nome do arquivo: ");
+            scanf("%s", nome);
+            sprintf(nome, "%s", ".txt");
+            if(imgOpc == 0) orientando->imagem = lerImagem(nome);
+            else if(imgOpc == 1) orientando->imagemFiltrada = lerImagem(nome);
+            break;
+
+        case 4:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            if(imgOpc == 0) mostrarImagem(orientando->imagem);
+            else if(imgOpc == 1) mostrarImagem(orientando->imagemFiltrada);
+            break;
+        
+        case 5:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            printf("Maior Valor: ");
+            if(imgOpc == 0) printf("%d\n", maiorValor(orientando->imagem));
+            else if(imgOpc == 1) printf("%d\n", maiorValor(orientando->imagemFiltrada));
+            break;
+        
+        case 6:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            printf("Menor Valor: ");
+            if(imgOpc == 0) printf("%d\n", menorValor(orientando->imagem));
+            else if(imgOpc == 1) printf("%d\n", menorValor(orientando->imagemFiltrada));
+            break;
+        
+        case 7:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            printf("Digite as coordenas de x e y de dois pontos(x1 y1 x2 y2): ");
+            scanf("%d %d %d %d", &ponto1.x, &ponto1.y, &ponto2.x, &ponto2.y);
+            printf("Distancia: ");
+            if(imgOpc == 0) printf("%.2f\n", distEuclidiana(orientando->imagem, ponto1, ponto2));
+            else if(imgOpc == 1) printf("%.2f\n", distEuclidiana(orientando->imagemFiltrada, ponto1, ponto2));
+            break;
+        
+        case 8:
+            printf("principal(0) ou secundária(1)? ");
+            scanf("%d", &imgOpc);
+            printf("Digite as coordenas de x e y de dois pontos(x1 y1 x2 y2): ");
+            scanf("%d %d %d %d", &ponto1.x, &ponto1.y, &ponto2.x, &ponto2.y);
+            printf("Distancia: ");
+            if(imgOpc == 0) printf("%.2f\n", distManhattan(orientando->imagem, ponto1, ponto2));
+            else if(imgOpc == 1) printf("%.2f\n", distManhattan(orientando->imagemFiltrada, ponto1, ponto2));
+            break;
+        
+        case 9:
+            orientando->imagemFiltrada = LBP(orientando->imagem);
+            printf("Filtro aplicado. Resultado na imagem secundaria.\n");
+            break;
+        
+        case 10:
+            orientando->imagemFiltrada = filtroDeMedia(orientando->imagem);
+            printf("Filtro aplicado. Resultado na imagem secundaria.\n");
+            break;
+
+        case 11:
+            orientando->imagemFiltrada = filtroDeMediana(orientando->imagem);
+            printf("Filtro aplicado. Resultado na imagem secundaria.\n");
+            break;
+
+        default:
+            break;
+        }
+    }while(opc != 0);
 }

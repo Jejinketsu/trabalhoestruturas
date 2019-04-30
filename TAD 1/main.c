@@ -11,10 +11,10 @@ void main(){
 	
 	preenche(imagem);
 	
-	salvarImagem(imagem, "teste.txt");
+	//salvarImagem(imagem, "teste.txt");
 	
-	Imagem imagem2 = lerImagem("teste.txt");
+	//Imagem imagem2 = lerImagem("teste.txt");
 
-	mostrarImagem(imagem2);
+	mostrarImagem(imagem);
 	
 }
