@@ -7,7 +7,7 @@ int main(){
     Imagem imagem = lerImagem("teste.txt");
     mostrarImagem(imagem);
 
-    imagem = filtroDeMediana(imagem);
+    imagem = LBP(imagem);
 
     mostrarImagem(imagem);
     salvarImagem(imagem, "filtro.txt");

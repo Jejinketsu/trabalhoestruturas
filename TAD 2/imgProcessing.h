@@ -6,7 +6,7 @@ typedef struct {
 } Ponto;
 
 void sort(int *vetor, int n);
-int binForInt(int *vetor);
+int binForInt(int *vetor, int qtd);
 int maiorValor(Imagem imagem);
 int menorValor(Imagem imagem);
 float distEuclidiana(Imagem imagem, Ponto ponto1, Ponto ponto2);

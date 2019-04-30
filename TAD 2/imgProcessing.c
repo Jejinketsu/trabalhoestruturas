@@ -17,6 +17,14 @@ void sort(int *vetor, int n){
     }
 }
 
+int binForInt(int *vetor, int qtd){
+    int soma = 0;
+    for(int i = 0; i < qtd; i++){
+        soma += pow(2, (qtd-1)-i)*vetor[i];
+    }
+    return soma;
+}
+
 int maiorValor(Imagem imagem){
     int maior = 0;
     for(int i = 0; i < imagem.altura; i++){
@@ -47,20 +55,21 @@ float distManhattan(Imagem imagem, Ponto ponto1, Ponto ponto2){
 
 Imagem LBP(Imagem imagem){
     Imagem imagemNova = aloca(imagem.altura, imagem.largura);
-    int binario[8];
-    int kernel = 3m cont;
+    int kernel = 3;
+    int binario[kernel][kernel];
     for(int ka = 0; ka < imagem.altura; ka++){
         for(int kl = 0; kl < imagem.largura; kl++){
-            cont = 0;
-            int vc = imagem.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura]
+            int vc = imagem.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura];
             for(int i = ka; i < ka+kernel; i++){
                 for(int j = kl; j < kl+kernel; j++){
-                    if(cont == 4) continue;
-                    if(imagem.matriz[i%imagem.altura][j%imagem.largura] >= vc)binario[cont] = 1; cont++;
-                    else binario[cont] = 0;
+                    if(imagem.matriz[i%imagem.altura][j%imagem.largura] >= vc){
+                        binario[i-ka][j-kl] = 1;
+                    } else binario[i-ka][j-kl] = 0;
                 }
+                int bin[8] = {binario[0][0], binario[0][1], binario[0][2], binario[1][0], binario[1][2], binario[2][0], binario[2][1], binario[2][2]};
+                imagemNova.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura] = binForInt(bin, 8);
             }
-            
+
         }
     }
     return imagemNova;
@@ -69,6 +78,7 @@ Imagem LBP(Imagem imagem){
 Imagem filtroDeMedia(Imagem imagem){
     Imagem imagemNova = aloca(imagem.altura, imagem.largura);
     int soma, kernel = 3, media = 0;
+    int elementosK = kernel*kernel;
     for(int ka = 0; ka < imagem.altura; ka++){
         for(int kl = 0; kl < imagem.largura; kl++){
             soma = 0;
@@ -77,7 +87,7 @@ Imagem filtroDeMedia(Imagem imagem){
                     soma += imagem.matriz[i%imagem.altura][j%imagem.largura];
                 }
             }
-            media = (int) (soma/9);
+            media = (int) (soma/elementosK);
             imagemNova.matriz[(ka+1)%imagem.altura][(kl+1)%imagem.largura] = media;
         }
     }
@@ -86,8 +96,9 @@ Imagem filtroDeMedia(Imagem imagem){
 
 Imagem filtroDeMediana(Imagem imagem){
     Imagem imagemNova = aloca(imagem.altura, imagem.largura);
-    int kernel = 3, media = 0, vetorK[9], cont;
+    int kernel = 3, media = 0, cont;
     int elementosK = kernel*kernel;
+    int vetorK[elementosK];
     for(int ka = 0; ka < imagem.altura; ka++){
         for(int kl = 0; kl < imagem.largura; kl++){
             cont = 0;
